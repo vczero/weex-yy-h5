@@ -1,0 +1,12 @@
+<template>
+  <div class="hr"></div>
+</template>
+
+<style>
+ .hr{
+   margin-top:20;
+   border-top-width:1;
+   border-top-color:#C1C1C1;
+   height:20;
+ }
+</style>

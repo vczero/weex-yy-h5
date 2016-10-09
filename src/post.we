@@ -1,0 +1,24 @@
+<template>
+  <div class="wrapper">
+     <text class="text">反馈</text>
+     <text>{{text}}</text>
+  </div>
+</template>
+
+<style>
+
+</style>
+
+<script>
+    module.exports = {
+        data: {
+            data2: []
+        },
+        created: function(){
+
+        },
+        computed:{
+
+        }
+    };
+</script>

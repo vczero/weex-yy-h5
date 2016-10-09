@@ -1,0 +1,71 @@
+<template>
+    <div class="wrapper">
+        <web class="web" src="{{src}}" style="height:{{height}};" onpagestart="pagestart" onpagefinish="pagefinish" onerror="error"></web>
+    </div>
+</template>
+
+
+<style>
+    .text{
+        font-size:26;
+    }
+
+    .web{
+        flex:1;
+    }
+</style>
+<script>
+    require('./components-add/wxc-navpage.we');
+    //background-color="#0A60FE" title-color="#fff" left-item-color="#fff"
+    module.exports = {
+        data: {
+            src: '',
+            width: 0,
+            height: 0,
+            src: '',
+            title: '测试页面',
+            leftTitle:'',
+        },
+        created: function(){
+            var config  = this.$getConfig();
+            this.width = config.env.deviceWidth;
+            this.height = config.env.deviceHeight;
+            var url = config.bundleUrl;
+            this.src = this._getUrl(url, 'weixin_url');
+            this.title = decodeURIComponent(this._getUrlParam(url, 'weixin_title'));
+
+            this.$on('naviBar.leftItem.click',function(e){
+                //pop back
+                var params = {
+                    'animated' : 'true',
+                }
+                var navigator = require('@weex-module/navigator');
+                navigator.pop(params, function(e) {});
+            });
+        },
+
+        methods: {
+            pagestart: function(){
+                //TODO: loading
+            },
+            pagefinish: function(){
+                //TODO: close loading
+            },
+            error: function(){
+                //TODO: show infowindow
+            },
+            _getUrl: function(url, key){
+                var isExits = url.indexOf(key);
+                if(isExits > -1){
+                    return url.split('url=')[1];
+                }
+            },
+            _getUrlParam: function(url, key){
+                var reg = new RegExp('[?|&]' + key + '=([^&]+)');
+                var match = url.match(reg);
+                return match && match[1];
+            }
+        }
+    };
+
+</script>
